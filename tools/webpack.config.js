@@ -294,6 +294,7 @@ const clientConfig = extend(true, {}, config, {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
+    child_process: 'empty',
   },
 });
 

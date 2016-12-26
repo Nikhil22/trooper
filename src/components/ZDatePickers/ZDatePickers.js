@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from '../../core/mui';
 import RaisedButton from 'material-ui/RaisedButton';
 import ZDivider from '../ZDivider';
+// import syncGoogle from '../../core/google-calendar/sync';
 
 const buttonAddPickerStyle = {
   marginTop: 30,
@@ -32,7 +33,9 @@ class ZDatePickers extends React.Component {
   }
 
   syncGoogleCalendar() {
-
+    // Now we can run a script and invoke a callback when complete, e.g.
+    // const sync = require('../../core/google-calendar/sync');
+    // sync.readFile();
   }
 
   render() {
@@ -44,10 +47,19 @@ class ZDatePickers extends React.Component {
 
         <MuiThemeProvider muiTheme={muiTheme}>
           <div>
-            <RaisedButton label="Add another" style={buttonAddPickerStyle} primary={true} onClick={this.addPicker.bind(this)}/>
+            <RaisedButton
+              label="Add another"
+              style={buttonAddPickerStyle}
+              primary={true}
+              onClick={this.addPicker.bind(this)}
+            />
             <ZDivider style={dividerStyle} />
-            <h3>Or...Have your events on Google Calendar?</h3>
-            <RaisedButton label="Sync" secondary={true} onClick={this.syncGoogleCalendar.bind(this)}/>
+            <h3>Have your events on Google Calendar?</h3>
+            <RaisedButton
+              label="Sync"
+              secondary={true}
+              onClick={this.syncGoogleCalendar}
+            />
           </div>
         </MuiThemeProvider>
       </div>

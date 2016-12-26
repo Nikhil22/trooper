@@ -19,6 +19,8 @@
     "express-jwt": "^5.1.0",
     "fastclick": "^1.0.6",
     "fbjs": "^0.8.6",
+    "google-auth-library": "^0.9.10",
+    "googleapis": "^15.0.0",
     "graphql": "^0.8.2",
     "history": "^4.5.0",
     "isomorphic-style-loader": "^1.1.0",
