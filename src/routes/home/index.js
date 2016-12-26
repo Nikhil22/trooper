@@ -14,7 +14,7 @@ import Layout from '../../components/Layout';
 
 export default {
 
-  path: '/',
+  path: '/home',
 
   async action() {
     const resp = await fetch('/graphql', {

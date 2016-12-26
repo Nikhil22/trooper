@@ -18,7 +18,7 @@
    * Layout
    * ======================================================================== */
 
-  --max-content-width: 1000px;
+  --max-content-width: 1400px;
 
   /*
    * Media queries breakpoints
@@ -28,4 +28,12 @@
   --screen-sm-min: 768px;  /* Small screen / tablet */
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
+
+  --button-green: #4caf50;
+  --button-blue: #008cba;
+
+  button:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
 }

@@ -10,6 +10,7 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Login.css';
+import zTabs from '../../components/zTabs';
 
 class Login extends React.Component {
   static propTypes = {
@@ -108,6 +109,7 @@ class Login extends React.Component {
                 name="password"
               />
             </div>
+            <zTabs />
             <div className={s.formGroup}>
               <button className={s.button} type="submit">
                 Log in

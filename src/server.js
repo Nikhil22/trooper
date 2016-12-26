@@ -101,6 +101,8 @@ app.get('*', async (req, res, next) => {
       },
     };
 
+    css.add(require('react-datepicker/dist/react-datepicker.css')._getCss());
+
     const route = await UniversalRouter.resolve(routes, {
       path: req.path,
       query: req.query,
