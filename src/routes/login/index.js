@@ -8,8 +8,8 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
 import Login from './Login';
+import ZHeader from '../../components/ZHeader';
 
 const title = 'Log In';
 
@@ -20,7 +20,12 @@ export default {
   action() {
     return {
       title,
-      component: <Layout><Login title={title} /></Layout>,
+      component: (
+        <div>
+          <ZHeader plain />
+          <Login title={title} />
+        </div>
+      ),
     };
   },
 

@@ -1,7 +1,7 @@
 import Client from './Client';
 import ClientProfile from './ClientProfile';
 
-export default {
+export {
   Client,
   ClientProfile,
 };

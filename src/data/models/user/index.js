@@ -3,7 +3,7 @@ import UserLogin from './UserLogin';
 import UserClaim from './UserClaim';
 import UserProfile from './UserProfile';
 
-export default {
+export {
   User,
   UserLogin,
   UserClaim,

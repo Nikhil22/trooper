@@ -11,9 +11,10 @@ import sequelize from '../sequelize';
 import { User, UserProfile, UserClaim, UserLogin } from './user';
 import { Client, ClientProfile } from './client';
 import { Company, CompanyProfile } from './company';
-import { Rating } from './rating';
-import { Event } from './event';
+import Rating from './rating';
+import Event from './event';
 
+/* One user can have multiple logins */
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
   as: 'logins',
@@ -21,6 +22,7 @@ User.hasMany(UserLogin, {
   onDelete: 'cascade',
 });
 
+/* One user can then also have multiple claims */
 User.hasMany(UserClaim, {
   foreignKey: 'userId',
   as: 'claims',
@@ -28,6 +30,10 @@ User.hasMany(UserClaim, {
   onDelete: 'cascade',
 });
 
+/*
+  One user can have multiple ratings.
+  Rating table will have a foreign key 'userId'
+*/
 User.hasMany(Rating, {
   foreignKey: 'userId',
   as: 'ratings',
@@ -35,6 +41,18 @@ User.hasMany(Rating, {
   onDelete: 'cascade',
 });
 
+/*
+  One user can have multiple events.
+  Event table will have a foreign key 'userId'
+*/
+User.hasMany(Event, {
+  foreignKey: 'userId',
+  as: 'events',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+/* One user can only have one profile */
 User.hasOne(UserProfile, {
   foreignKey: 'userId',
   as: 'profile',
@@ -42,20 +60,27 @@ User.hasOne(UserProfile, {
   onDelete: 'cascade',
 });
 
+/*
+  One user belongs to many clients. i.e, many clients have the same user
+  One client belongs to many clients. i.e many users have the same client
+  This will create a new model/table called UserClient with the equivalent
+    foreign keys clentId and userId
+*/
 User.belongsToMany(Client, {
   through: 'UserClient',
   onUpdate: 'cascade',
   onDelete: 'cascade',
-  as: 'client',
+  as: 'clients',
 });
 
 Client.belongsToMany(User, {
   through: 'UserClient',
   onUpdate: 'cascade',
   onDelete: 'cascade',
-  as: 'user',
+  as: 'users',
 });
 
+/* One client has one profile */
 Client.hasOne(ClientProfile, {
   foreignKey: 'clientId',
   as: 'profile',
@@ -63,33 +88,36 @@ Client.hasOne(ClientProfile, {
   onDelete: 'cascade',
 });
 
+/*
+  One client has many ratings
+  Rating table will have a foreign key 'clientId'
+*/
 Client.hasMany(Rating, {
-  through: 'ClientRating',
+  foreignKey: 'clientId',
   onUpdate: 'cascade',
   onDelete: 'cascade',
-  as: 'rating',
+  as: 'ratings',
 });
 
+/*
+  One company has many users (employees)
+  User table will have a foreign key 'companyId'
+*/
 Company.hasMany(User, {
-  through: 'CompanyUser',
+  foreignKey: 'companyId',
   onUpdate: 'cascade',
   onDelete: 'cascade',
-  as: 'user',
+  as: 'users',
 });
 
-Company.hasMany(Client, {
-  through: 'CompanyClient',
-  onUpdate: 'cascade',
-  onDelete: 'cascade',
-  as: 'client',
-});
-
+/* One company has one profile */
 Company.hasOne(CompanyProfile, {
   foreignKey: 'companyId',
   as: 'profile',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
+
 
 function sync(...args) {
   return sequelize.sync(...args);

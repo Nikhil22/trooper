@@ -32,6 +32,7 @@ passport.use(new GoogleStrategy({
   clientSecret: config.google.secret,
   callbackURL: '/login/google/return/',
   passReqToCallback: true,
+  profileFields: ['displayName', 'email'],
 },
   (req, accessToken, refreshToken, profile, done) => {
     const loginName = 'google';
@@ -85,13 +86,14 @@ passport.use(new GoogleStrategy({
             },
           ],
         });
+        console.log(profile);
         if (users.length) {
           done(null, users[0]);
         } else {
           let user = await User.findOne({ where: { email: profile._json.email } });
           if (user) {
             // There is already an account using this email address. Sign in to
-            // that account and link it with Facebook manually from Account Settings.
+            // that account and link it with Google manually from Account Settings.
             done(null);
           } else {
             user = await User.create({
@@ -106,7 +108,6 @@ passport.use(new GoogleStrategy({
               profile: {
                 displayName: profile.displayName,
                 gender: profile._json.gender,
-                picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
               },
             }, {
               include: [

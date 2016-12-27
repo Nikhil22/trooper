@@ -1,9 +1,9 @@
 import DataType from 'sequelize';
 import Model from '../../sequelize';
 
-const ClientProfile = Model.define('ClientProfile', {
+const CompanyProfile = Model.define('CompanyProfile', {
 
-  clientId: {
+  companyId: {
     type: DataType.UUID,
     primaryKey: true,
   },
@@ -16,10 +16,6 @@ const ClientProfile = Model.define('ClientProfile', {
     type: DataType.STRING(255),
   },
 
-  gender: {
-    type: DataType.STRING(50),
-  },
-
   location: {
     type: DataType.STRING(100),
   },
@@ -30,4 +26,4 @@ const ClientProfile = Model.define('ClientProfile', {
 
 });
 
-export default ClientProfile;
+export default CompanyProfile;

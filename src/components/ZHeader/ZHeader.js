@@ -21,9 +21,14 @@ class ZHeader extends React.Component {
     super();
   }
   render() {
-    const nav = this.props.in ?
-                <ZNavigationIn className={s.nav} />
-                : <ZNavigationOut className={s.nav} />
+    let nav = null;
+
+    if (!this.props.plain) {
+      nav = this.props.in ?
+            <ZNavigationIn className={s.nav} />
+            : <ZNavigationOut className={s.nav} />
+    }
+    
     return (
       <div className={s.root}>
         <div className={s.container}>

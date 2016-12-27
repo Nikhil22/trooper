@@ -5,12 +5,12 @@ import {
   GraphQLNonNull as NonNull,
 } from 'graphql';
 
-const ClientType = new ObjectType({
-  name: 'Client',
+const CompanyType = new ObjectType({
+  name: 'Company',
   fields: {
     id: { type: new NonNull(ID) },
     email: { type: StringType },
   },
 });
 
-export default ClientType;
+export default CompanyType;

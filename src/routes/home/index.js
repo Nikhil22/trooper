@@ -29,7 +29,7 @@ export default {
       credentials: 'include',
     });
     const { data } = await resp.json();
-    if (!data || !data.news) throw new Error('Failed to load the news feed.');
+    if (!data) throw new Error('Failed to load the news feed.');
     return {
       title: 'React Starter Kit',
       component: <Layout><Home news={data.news} /></Layout>,
