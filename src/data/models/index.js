@@ -8,10 +8,11 @@
  */
 
 import sequelize from '../sequelize';
-import User from './User';
-import UserLogin from './UserLogin';
-import UserClaim from './UserClaim';
-import UserProfile from './UserProfile';
+import { User, UserProfile, UserClaim, UserLogin } from './user';
+import { Client, ClientProfile } from './client';
+import { Company, CompanyProfile } from './company';
+import { Rating } from './rating';
+import { Event } from './event';
 
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
@@ -27,8 +28,64 @@ User.hasMany(UserClaim, {
   onDelete: 'cascade',
 });
 
+User.hasMany(Rating, {
+  foreignKey: 'userId',
+  as: 'ratings',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 User.hasOne(UserProfile, {
   foreignKey: 'userId',
+  as: 'profile',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+User.belongsToMany(Client, {
+  through: 'UserClient',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+  as: 'client',
+});
+
+Client.belongsToMany(User, {
+  through: 'UserClient',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+  as: 'user',
+});
+
+Client.hasOne(ClientProfile, {
+  foreignKey: 'clientId',
+  as: 'profile',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+Client.hasMany(Rating, {
+  through: 'ClientRating',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+  as: 'rating',
+});
+
+Company.hasMany(User, {
+  through: 'CompanyUser',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+  as: 'user',
+});
+
+Company.hasMany(Client, {
+  through: 'CompanyClient',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+  as: 'client',
+});
+
+Company.hasOne(CompanyProfile, {
+  foreignKey: 'companyId',
   as: 'profile',
   onUpdate: 'cascade',
   onDelete: 'cascade',
@@ -39,4 +96,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile };
+export { User, UserLogin, UserClaim, UserProfile, Client, ClientProfile, Rating, Company, Event };

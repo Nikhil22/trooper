@@ -28,8 +28,8 @@ passport.deserializeUser((user, done) => {
 });
 
 passport.use(new GoogleStrategy({
-  clientID: '719072412358-ior47ba99r1v0ua5dvnbnfbhd2hdgv3r.apps.googleusercontent.com',
-  clientSecret: 'vUlNadqacN0C1TCgN1rTPY92',
+  clientID: config.google.id,
+  clientSecret: config.google.secret,
   callbackURL: '/login/google/return/',
   passReqToCallback: true,
 },
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
           where: { name: loginName, key: profile.id },
         });
         if (userLogin) {
-          // There is already a Facebook account that belongs to you.
+          // There is already a Google account that belongs to you.
           // Sign in with that account or delete it, then link it with your current account.
           done();
         } else {
@@ -59,7 +59,6 @@ passport.use(new GoogleStrategy({
             profile: {
               displayName: profile.displayName,
               gender: profile._json.gender,
-              picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
             },
           }, {
             include: [
@@ -127,23 +126,5 @@ passport.use(new GoogleStrategy({
     fooBar().catch(done);
   },
 ));
-
-// /**
-//  * Sign in with Facebook.
-//  */
-// passport.use(new FacebookStrategy({
-//   clientID: config.facebook.id,
-//   clientSecret: config.facebook.secret,
-//   callbackURL: '/login/facebook/return',
-//   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-//   passReqToCallback: true,
-// }, (req, accessToken, refreshToken, profile, done) => {
-//   /* eslint-disable no-underscore-dangle */
-//   const loginName = 'facebook';
-//   const claimType = 'urn:facebook:access_token';
-//
-//
-//   fooBar().catch(done);
-// }));
 
 export default passport;
