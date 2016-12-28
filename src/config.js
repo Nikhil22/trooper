@@ -46,3 +46,7 @@ export const auth = {
   },
 
 };
+
+export const db = {
+    mongo: 'mongodb://domususer:H3*A#I#RvcIXmz8@ds013216.mlab.com:13216/domus'
+};
