@@ -21,7 +21,7 @@ class ZNavigationIn extends React.Component {
   render() {
     return (
       <div className={cx(s.root, this.props.className)} role="ZNavigation">
-        <Link className={s.link} to="/login">Log out</Link>
+        <Link className={s.link} to="/logout">Log out</Link>
       </div>
     );
   }

@@ -62,16 +62,28 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.get('/login/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+    session: false }
+  ));
 
 app.get('/login/google/return',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
   (req, res) => {
-    // const expiresIn = 60 * 60 * 24; // 1 day
-    // const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    // res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+    const expiresIn = 60 * 60 * 24; // 1 day
+    const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect('/');
   });
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 //
 // Register API middleware

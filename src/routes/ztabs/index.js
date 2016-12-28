@@ -10,7 +10,7 @@
 import React from 'react';
 import ZHeader from '../../components/ZHeader';
 import ZTabs from '../../components/ZTabs';
-import fetch from '../../core/fetch';
+import middleware from '../../routing-middleware/ztabs.middleware';
 
 const title = 'Trooper';
 
@@ -19,20 +19,9 @@ export default {
   path: '/',
 
   async action() {
-    const resp = await fetch('/graphql', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: '{me{id,email}}',
-      }),
-      credentials: 'include',
-    });
-    const { data } = await resp.json();
-    if (!data /*|| !data.me*/) {
-      return { redirect: '/login' };
+    const shouldRedirect = await middleware();
+    if (shouldRedirect) {
+      return shouldRedirect;
     }
     return {
       title,

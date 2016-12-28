@@ -10,6 +10,7 @@
 import React from 'react';
 import Login from './Login';
 import ZHeader from '../../components/ZHeader';
+import middleware from '../../routing-middleware/login.middleware';
 
 const title = 'Log In';
 
@@ -17,7 +18,11 @@ export default {
 
   path: '/login',
 
-  action() {
+  async action() {
+    const shouldRedirect = await middleware();
+    if (shouldRedirect) {
+      return shouldRedirect;
+    }
     return {
       title,
       component: (

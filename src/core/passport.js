@@ -86,9 +86,12 @@ passport.use(new GoogleStrategy({
             },
           ],
         });
-        console.log(profile);
         if (users.length) {
-          done(null, users[0]);
+          const user = users[0];
+          done(null, {
+            id: user.id,
+            email: user.email,
+          });
         } else {
           let user = await User.findOne({ where: { email: profile._json.email } });
           if (user) {
