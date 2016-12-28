@@ -15,6 +15,7 @@ import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
@@ -28,9 +29,21 @@ import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
-import { port, auth } from './config';
+import { port, auth, db } from './config';
+import runTasks from './controllers/tasks.js';
 
 const app = express();
+
+//mongodb
+mongoose.connect(db.mongo, (err) => {
+    if (!!err) {
+        console.log(`Error connecting to MongoDB: ${err}`);
+        return;
+    }
+    console.log('Connected to MongoDB');
+});
+
+runTasks();
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
