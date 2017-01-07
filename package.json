@@ -29,6 +29,7 @@
     "material-ui": "^0.16.6",
     "moment": "^2.17.1",
     "mongoose": "^4.7.5",
+    "mysql": "^2.12.0",
     "node-fetch": "^1.6.3",
     "normalize.css": "^5.0.0",
     "passport": "^0.3.2",

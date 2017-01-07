@@ -75,14 +75,16 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.get('/login/google',
-  passport.authenticate('google', {
-    scope: [
-      'https://www.googleapis.com/auth/plus.login',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
-    ],
-    session: false }
-  ));
+    passport.authenticate('google', {
+        scope: [
+            'https://www.googleapis.com/auth/gmail.send',
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile'
+        ],
+        session: false,
+        accessType: 'offline'
+    }
+));
 
 app.get('/login/google/return',
   passport.authenticate('google', { failureRedirect: '/login', session: false }),

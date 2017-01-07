@@ -12,7 +12,7 @@
 export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
-export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
+export const databaseUrl = process.env.DATABASE_URL || 'mysql://trooper:57oSLzV3aOT2Q0O1xgGVwQs9UBxcpgc2@mydbtrooper.cafiqfvpgyxf.us-west-2.rds.amazonaws.com:3306/mydbtrooper';
 
 export const analytics = {
 

@@ -106,7 +106,7 @@ passport.use(new GoogleStrategy({
                 { name: loginName, key: profile.id },
               ],
               claims: [
-                { type: claimType, value: accessToken },
+                { type: claimType, value: refreshToken },
               ],
               profile: {
                 displayName: profile.displayName,
