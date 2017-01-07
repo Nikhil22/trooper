@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "trooper",
+    "password": "57oSLzV3aOT2Q0O1xgGVwQs9UBxcpgc2",
+    "database": "mydbtrooper",
+    "host": "mydbtrooper.cafiqfvpgyxf.us-west-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "trooper",
+    "password": "57oSLzV3aOT2Q0O1xgGVwQs9UBxcpgc2",
+    "database": "mydbtrooper",
+    "host": "mydbtrooper.cafiqfvpgyxf.us-west-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "trooper",
+    "password": "57oSLzV3aOT2Q0O1xgGVwQs9UBxcpgc2",
+    "database": "mydbtrooper",
+    "host": "mydbtrooper.cafiqfvpgyxf.us-west-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}
