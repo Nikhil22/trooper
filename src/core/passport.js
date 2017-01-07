@@ -50,7 +50,7 @@ passport.use(new GoogleStrategy({
         } else {
           const user = await User.create({
             id: req.user.id,
-            email: profile._json.email,
+            email: profile.emails[0].value,
             logins: [
               { name: loginName, key: profile.id },
             ],
@@ -88,6 +88,10 @@ passport.use(new GoogleStrategy({
         });
         if (users.length) {
           const user = users[0];
+          await User.update(
+              {email: profile.emails[0].value},
+              {where: {id: user.id}}
+          )
           done(null, {
             id: user.id,
             email: user.email,

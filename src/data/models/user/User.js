@@ -28,6 +28,10 @@ const User = Model.define('User', {
     defaultValue: false,
   },
 
+  stripe: {
+      type: DataType.STRING(255)
+  }
+
 }, {
 
   indexes: [
