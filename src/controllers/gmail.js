@@ -62,4 +62,4 @@ const sendEmail = async () => {
 
 };
 
-export { sendEmail };
+export { sendEmail, refreshAccessToken };

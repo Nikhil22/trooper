@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import fetch from '../../core/fetch';
 
 const title = 'Logged out';
 
@@ -15,11 +16,11 @@ export default {
 
   path: '/logout',
 
-  action() {
-    return {
-      title,
-      component: <div />,
-    };
+  async action() {
+    await fetch('/logout', {
+      method: 'get',
+    });
+    return { redirect: '/login' };
   },
 
 };

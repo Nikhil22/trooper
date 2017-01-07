@@ -23,6 +23,7 @@ class Link extends React.Component {
     to: PropTypes.string.isRequired,
     children: PropTypes.node,
     onClick: PropTypes.func,
+    targetSelf: PropTypes.string
   };
 
   handleClick = (event) => {
