@@ -12,13 +12,17 @@ import {
   GraphQLID as ID,
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
+  GraphQLList as List,
 } from 'graphql';
+
+import EventType from './EventType';
 
 const UserType = new ObjectType({
   name: 'User',
   fields: {
     id: { type: new NonNull(ID) },
     email: { type: StringType },
+    events: { type: new List(EventType) },
   },
 });
 

@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import s from './ZDatePicker.css';
 import muiTheme from '../../core/mui';
+import fetch from '../../core/fetch';
 
 // const DatePicker = require('react-datepicker');
 const moment = require('moment');
@@ -19,7 +20,6 @@ const ZDatePicker = React.createClass({
   },
 
   handleDateChange: function(date) {
-    console.log(date)
     this.setState({
       endDate: date,
     });
@@ -35,8 +35,26 @@ const ZDatePicker = React.createClass({
     return !this.state.endDate || !this.state.clientEmail;
   },
 
-  addEndDate: function() {
-    //flux store
+  addEvent: async function() {
+    const user = await fetch('/graphql', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `mutation {createUserEvent(event:${event}){id,email,events{clientEmail}}}`,
+        variables: {
+          event: {
+            endDate: this.state.endDate,
+            clientEmail: this.state.clientEmail,
+          }
+        }
+      }),
+      credentials: 'include',
+    });
+
+    console.log(user);
   },
 
   render: function() {
@@ -61,7 +79,10 @@ const ZDatePicker = React.createClass({
           placeholder="Client email"
         />
 
-        <button className={s['react-datepicker_add_button']} onClick={this.addEndDate} disabled={this.determineAddBtnDisability()}>
+        <button
+          className={s['react-datepicker_add_button']}
+          onClick={this.addEvent}
+          disabled={this.determineAddBtnDisability()}>
           Add
         </button>
       </div>
