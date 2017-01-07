@@ -58,6 +58,8 @@ const send = ({ googleId, refreshToken, emailDetails }) => new Promise((resolve,
     });
 });
 
-export sendEmail = async () => {
+const sendEmail = async () => {
 
 };
+
+export { sendEmail };
