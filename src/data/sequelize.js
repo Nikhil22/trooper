@@ -11,9 +11,12 @@ import Sequelize from 'sequelize';
 import { databaseUrl } from '../config';
 
 const sequelize = new Sequelize(databaseUrl, {
-  define: {
-    freezeTableName: true,
-  },
+    define: {
+        freezeTableName: true,
+    },
+    dialectOptions: {
+        'SSL_VERIFY_SERVER_CERT': '../amazon-rds-ca-cert.pem'
+    }
 });
 
 export default sequelize;
