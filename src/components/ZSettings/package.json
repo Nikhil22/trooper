@@ -1,0 +1,6 @@
+{
+  "name": "ZSettings",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ZSettings.js"
+}

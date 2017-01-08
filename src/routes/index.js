@@ -25,6 +25,7 @@ export default {
     require('./admin').default,
     require('./ztabs').default,
     require('./logout').default,
+    require('./settings').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
