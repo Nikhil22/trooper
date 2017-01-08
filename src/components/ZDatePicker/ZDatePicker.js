@@ -65,7 +65,7 @@ const ZDatePicker = React.createClass({
       }
     }`;
 
-    const event = await fetch('/graphql', {
+    const response = await fetch('/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -81,7 +81,9 @@ const ZDatePicker = React.createClass({
       credentials: 'include',
     });
 
-    if (event) {
+    const { data } = await response.json();
+
+    if (data && data.createUserEvent) {
       this.setState({
         isToastVisible: true,
         toastMessage: 'Event successfully added!'

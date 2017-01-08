@@ -11,8 +11,7 @@ class ZIf extends Component {
 }
 
 ZIf.propTypes = {
-  show: PropTypes.boolean,
-  children: PropTypes.component,
+  show: PropTypes.bool,
 };
 
 export default ZIf;

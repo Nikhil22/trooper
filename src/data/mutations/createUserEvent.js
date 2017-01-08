@@ -17,8 +17,6 @@ const createUserEvent = {
       endDate: variables.endDate,
       clientEmail: variables.clientEmail,
       userId: request.user.id,
-    }).then(function(data) {
-      return data;
     });
   },
 };

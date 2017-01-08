@@ -15,7 +15,9 @@ import {
 import me from './queries/me';
 import news from './queries/news';
 import events from './queries/events';
+
 import createUserEvent from './mutations/createUserEvent';
+import deleteUserEvent from './mutations/deleteUserEvent';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -28,9 +30,10 @@ const schema = new Schema({
   }),
   mutation: new ObjectType({
     name: 'Mutation',
-    fields: () => ({
+    fields: {
       createUserEvent,
-    }),
+      deleteUserEvent,
+    },
   }),
 });
 
