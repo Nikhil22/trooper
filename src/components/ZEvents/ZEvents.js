@@ -9,7 +9,7 @@ async function queryEvents() {
     }
   }`;
 
-  const events = await fetch('/graphql', {
+  const response = await fetch('/graphql', {
     method: 'post',
     headers: {
       Accept: 'application/json',
@@ -21,6 +21,7 @@ async function queryEvents() {
     credentials: 'include',
   });
 
+  const events = await response.json();
   console.log(events);
 }
 
