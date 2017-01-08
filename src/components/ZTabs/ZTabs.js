@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ZTabs.css';
 import ZDatePickers from '../ZDatePickers';
+import ZEvents from '../ZEvents';
 
 class ZTabs extends Component {
   handleSelect(index, last) {
@@ -28,7 +29,7 @@ class ZTabs extends Component {
             <ZDatePickers numDatePickers={3}></ZDatePickers>
           </TabPanel>
           <TabPanel>
-            <h2>You have no upcoming events</h2>
+            <ZEvents />
           </TabPanel>
           <TabPanel>
             <h2>You have no reviews yet</h2>

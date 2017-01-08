@@ -55,8 +55,7 @@ const ZDatePicker = React.createClass({
   },
 
   addEvent: async function() {
-
-  const mutation = `mutation CUE($endDate: String!, $clientEmail: String!) {
+    const mutation = `mutation CUE($endDate: String!, $clientEmail: String!) {
       createUserEvent(
         endDate: $endDate,
         clientEmail: $clientEmail
