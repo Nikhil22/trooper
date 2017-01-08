@@ -62,13 +62,14 @@ class ZDatePickers extends React.Component {
             />
           </div>
         </MuiThemeProvider>
+
       </div>
     )
   }
 }
 
 ZDatePickers.propTypes = {
-    numDatePickers: React.PropTypes.number
+  numDatePickers: React.PropTypes.number
 };
 
 export default ZDatePickers;

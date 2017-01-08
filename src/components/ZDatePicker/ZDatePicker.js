@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import s from './ZDatePicker.css';
 import muiTheme from '../../core/mui';
 import fetch from '../../core/fetch';
+import ZToast from '../ZToast';
 
 // const DatePicker = require('react-datepicker');
 const moment = require('moment');
@@ -16,6 +17,8 @@ const ZDatePicker = React.createClass({
     return {
       endDate: new Date(),
       clientEmail: '',
+      isToastVisible: false,
+      toastMessage: '',
     };
   },
 
@@ -32,29 +35,64 @@ const ZDatePicker = React.createClass({
   },
 
   determineAddBtnDisability: function() {
-    return !this.state.endDate || !this.state.clientEmail;
+    return !this.state.endDate || !this.state.clientEmail || !this.validateEmail();
+  },
+
+  validateEmail: function() {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(this.state.clientEmail);
+  },
+
+  didUserEnterInvalidEmail: function() {
+    return this.state.clientEmail.length && !this.validateEmail();
+  },
+
+  onToastClose: function() {
+    this.setState({
+      isToastVisible: false,
+      toastMessage: ''
+    })
   },
 
   addEvent: async function() {
-    const user = await fetch('/graphql', {
+
+  const mutation = `mutation CUE($endDate: String!, $clientEmail: String!) {
+      createUserEvent(
+        endDate: $endDate,
+        clientEmail: $clientEmail
+      ) {
+        clientEmail,
+        endDate
+      }
+    }`;
+
+    const event = await fetch('/graphql', {
       method: 'post',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: `mutation {createUserEvent(event:${event}){id,email,events{clientEmail}}}`,
+        query: mutation,
         variables: {
-          event: {
-            endDate: this.state.endDate,
-            clientEmail: this.state.clientEmail,
-          }
+          endDate: this.state.endDate,
+          clientEmail: this.state.clientEmail,
         }
       }),
       credentials: 'include',
     });
 
-    console.log(user);
+    if (event) {
+      this.setState({
+        isToastVisible: true,
+        toastMessage: 'Event successfully added!'
+      })
+    }else {
+      this.setState({
+        isToastVisible: true,
+        toastMessage: 'There was an error when trying to add your event'
+      })
+    }
   },
 
   render: function() {
@@ -73,7 +111,7 @@ const ZDatePicker = React.createClass({
         </div>
         <input
           type="email"
-          className={s['react-datepicker_input']}
+          className={this.didUserEnterInvalidEmail() ? s['react-datepicker_input__invalid'] : s['react-datepicker_input']}
           onChange={this.handleEmailChange}
           value={this.state.clientEmail}
           placeholder="Client email"
@@ -85,6 +123,12 @@ const ZDatePicker = React.createClass({
           disabled={this.determineAddBtnDisability()}>
           Add
         </button>
+
+        <ZToast
+          open={this.state.isToastVisible}
+          message={this.state.toastMessage}
+          onClose={this.onToastClose}
+        />
       </div>
     );
   },

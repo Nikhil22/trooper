@@ -34,16 +34,16 @@ import runTasks from './controllers/tasks.js';
 
 const app = express();
 
-//mongodb
-mongoose.connect(db.mongo, (err) => {
-    if (!!err) {
-        console.log(`Error connecting to MongoDB: ${err}`);
-        return;
-    }
-    console.log('Connected to MongoDB');
-});
-
-runTasks();
+// //mongodb
+// mongoose.connect(db.mongo, (err) => {
+//     if (!!err) {
+//         console.log(`Error connecting to MongoDB: ${err}`);
+//         return;
+//     }
+//     console.log('Connected to MongoDB');
+// });
+//
+// runTasks();
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -77,13 +77,13 @@ if (process.env.NODE_ENV !== 'production') {
 app.get('/login/google',
     passport.authenticate('google', {
       scope: [
-          'https://www.googleapis.com/auth/gmail.send',
-          'https://www.googleapis.com/auth/userinfo.email',
-          'https://www.googleapis.com/auth/userinfo.profile'
+        'https://www.googleapis.com/auth/gmail.send',
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
       ],
       session: false,
-      accessType: 'offline'
-    }
+      accessType: 'offline',
+    },
 ));
 
 app.get('/login/google/return',
@@ -91,12 +91,12 @@ app.get('/login/google/return',
   (req, res) => {
     const expiresIn = 60 * 60 * 24; // 1 day
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true, path: '/' });
     res.redirect('/');
   });
 
 app.get('/logout', (req, res) => {
-  res.clearCookie('id_token');
+  res.clearCookie('id_token', { path: '/' });
   res.redirect('/login');
 });
 

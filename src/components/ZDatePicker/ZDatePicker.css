@@ -39,3 +39,12 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.react-datepicker_input__invalid {
+  padding: 7px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid #d9534f; /* red */
+  border-radius: 4px;
+  box-sizing: border-box;
+}

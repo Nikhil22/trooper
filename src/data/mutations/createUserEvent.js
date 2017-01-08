@@ -2,34 +2,23 @@ import {
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
 } from 'graphql';
-import UserType from '../types/UserType';
-import { User } from '../models/user';
+import EventType from '../types/EventType';
 import Event from '../models/event';
 
 const createUserEvent = {
-  type: UserType,
+  type: EventType,
   args: {
     clientEmail: { type: StringType },
     endDate: { type: new NonNull(StringType) },
   },
-  resolve({ request, args }) {
-    return request.user && User.update({
-      events: [
-        { clientEmail: args.clientEmail, endDate: args.endDate },
-      ],
-    }, {
-      where: {
-        id: request.user.id,
-      },
-    }, {
-      include: [
-        { model: Event, as: 'events' },
-      ],
-    })
-    .then(() => {
-      return {
-        id: request.user.id,
-      };
+  resolve({ request }) {
+    const variables = request.body.variables;
+    return request.user && Event.create({
+      endDate: variables.endDate,
+      clientEmail: variables.clientEmail,
+      userId: request.user.id,
+    }).then(function(data) {
+      return data;
     });
   },
 };
