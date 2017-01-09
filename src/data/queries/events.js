@@ -7,6 +7,9 @@ const events = {
   resolve({ request }) {
     return request.user && Event.findAll({
       where: { userId: request.user.id },
+      order: [
+        ['endDate', 'ASC'],
+      ],
     });
   },
 };

@@ -22,7 +22,7 @@ const ZDatePicker = React.createClass({
     };
   },
 
-  handleDateChange: function(date) {
+  handleDateChange: function(event, date) {
     this.setState({
       endDate: date,
     });

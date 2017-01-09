@@ -144,6 +144,7 @@ class ZEvents extends Component {
       });
     }
   }
+
   render() {
     const events = this.state.events.map((event, idx) => {
       return (
