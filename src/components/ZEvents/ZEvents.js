@@ -9,6 +9,7 @@ import muiTheme from '../../core/mui';
 import ZIf from '../ZIf';
 import isArray from '../../core/isArray';
 import ZToast from '../ZToast';
+import { humanizeElapsedTime } from '../../core/utils';
 
 const deleteButtonStyle = {
   margin: 12,
@@ -147,10 +148,11 @@ class ZEvents extends Component {
 
   render() {
     const events = this.state.events.map((event, idx) => {
+      const endDate = `${new Date(event.endDate).toDateString()} (${humanizeElapsedTime(event.endDate)})`;
       return (
         <TableRow key={event.id} selected={this.state.rowIndicesSelected.indexOf(idx) !== -1}>
           <TableRowColumn>{event.clientEmail}</TableRowColumn>
-          <TableRowColumn>{event.endDate}</TableRowColumn>
+          <TableRowColumn>{endDate}</TableRowColumn>
         </TableRow>
       );
     });

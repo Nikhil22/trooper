@@ -107,6 +107,7 @@ const ZDatePicker = React.createClass({
               container="inline"
               onChange={this.handleDateChange}
               defaultDate={this.state.endDate}
+              minDate={new Date()}
             />
           </MuiThemeProvider>
         </div>
