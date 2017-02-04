@@ -15,7 +15,7 @@ import {
 import me from './queries/me';
 import news from './queries/news';
 import events from './queries/events';
-
+import user from './queries/user';
 import createUserEvent from './mutations/createUserEvent';
 import deleteUserEvent from './mutations/deleteUserEvent';
 
@@ -26,6 +26,7 @@ const schema = new Schema({
       me,
       news,
       events,
+      user,
     },
   }),
   mutation: new ObjectType({

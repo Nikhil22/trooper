@@ -26,14 +26,8 @@ const User = Model.define('User', {
   emailConfirmed: {
     type: DataType.BOOLEAN,
     defaultValue: false,
-  },
-
-  stripe: {
-      type: DataType.STRING(255)
   }
-
-}, {
-
+},{
   indexes: [
     { fields: ['email'] },
   ],

@@ -1,0 +1,6 @@
+{
+  "name": "ZPersonalInfo",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ZPersonalInfo.js"
+}

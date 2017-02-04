@@ -20,10 +20,16 @@ const createStripeAccount = async ({ id }) => {
         }
     });
 
-    await User.update(
+    await UserProfile.update(
         {stripe: stripeAccount.id},
-        {where: {id: user.id}}
+        {where: {userId: user.profile.userId}}
     );
 
     return;
 };
+
+const stripeExport = {
+    createStripeAccount
+};
+
+export default stripeExport;

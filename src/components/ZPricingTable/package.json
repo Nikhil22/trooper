@@ -1,0 +1,6 @@
+{
+  "name": "ZPricingTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ZPricingTable.js"
+}
