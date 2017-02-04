@@ -37,6 +37,7 @@ passport.use(new GoogleStrategy({
   (req, accessToken, refreshToken, profile, done) => {
     const loginName = 'google';
     const claimType = 'urn:google:access_token';
+    console.log()
     const fooBar = async () => {
       if (req.user) {
         const userLogin = await UserLogin.findOne({

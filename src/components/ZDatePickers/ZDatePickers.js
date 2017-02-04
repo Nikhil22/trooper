@@ -33,8 +33,8 @@ class ZDatePickers extends React.Component {
   }
 
   syncGoogleCalendar() {
-    // Now we can run a script and invoke a callback when complete, e.g.
-    // const sync = require('../../core/google-calendar/sync');
+    //Now we can run a script and invoke a callback when complete, e.g.
+    // const sync = require('../../../google-calendar/quickstart');
     // sync.readFile();
   }
 
