@@ -14,8 +14,15 @@ const User = Model.define('User', {
 
   id: {
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV1,
     primaryKey: true,
+  },
+
+  refreshToken: {
+    type: DataType.STRING(255),
+  },
+
+  googleId: {
+    type: DataType.STRING,
   },
 
   email: {
@@ -26,8 +33,35 @@ const User = Model.define('User', {
   emailConfirmed: {
     type: DataType.BOOLEAN,
     defaultValue: false,
-  }
-},{
+  },
+
+  displayName: {
+      type: DataType.STRING(100),
+  },
+
+  picture: {
+      type: DataType.STRING(255),
+  },
+
+  gender: {
+      type: DataType.STRING(50),
+  },
+
+  location: {
+      type: DataType.STRING(100),
+  },
+
+  website: {
+      type: DataType.STRING(255),
+  },
+
+  stripe: {
+      type: DataType.STRING(255)
+  },
+  phone: {
+      type: DataType.STRING(255)
+  },
+}, {
   indexes: [
     { fields: ['email'] },
   ],

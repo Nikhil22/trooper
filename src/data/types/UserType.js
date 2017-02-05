@@ -16,7 +16,6 @@ import {
 } from 'graphql';
 
 import EventType from './EventType';
-import UserProfileType from './UserProfileType';
 
 const UserType = new ObjectType({
     name: 'User',
@@ -24,7 +23,15 @@ const UserType = new ObjectType({
         id: { type: new NonNull(ID) },
         email: { type: StringType },
         events: { type: new List(EventType) },
-        profile: { type: UserProfileType }
+        displayName: { type: StringType },
+        picture: { type: StringType },
+        gender: { type: StringType },
+        location: { type: StringType },
+        website: { type: StringType },
+        phone: { type: StringType },
+        stripe: { type: StringType },
+        googleId: {type: StringType },
+        refreshToken: { type: StringType },
     },
 });
 

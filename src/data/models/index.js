@@ -8,27 +8,11 @@
  */
 
 import sequelize from '../sequelize';
-import { User, UserProfile, UserClaim, UserLogin } from './user';
+import { User } from './user';
 import { Client, ClientProfile } from './client';
 import { Company, CompanyProfile } from './company';
 import Rating from './rating';
 import Event from './event';
-
-/* One user can have multiple logins */
-User.hasMany(UserLogin, {
-  foreignKey: 'userId',
-  as: 'logins',
-  onUpdate: 'cascade',
-  onDelete: 'cascade',
-});
-
-/* One user can then also have multiple claims */
-User.hasMany(UserClaim, {
-  foreignKey: 'userId',
-  as: 'claims',
-  onUpdate: 'cascade',
-  onDelete: 'cascade',
-});
 
 /*
   One user can have multiple ratings.
@@ -48,14 +32,6 @@ User.hasMany(Rating, {
 User.hasMany(Event, {
   foreignKey: 'userId',
   as: 'events',
-  onUpdate: 'cascade',
-  onDelete: 'cascade',
-});
-
-/* One user can only have one profile */
-User.hasOne(UserProfile, {
-  foreignKey: 'userId',
-  as: 'profile',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
@@ -124,4 +100,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile, Client, ClientProfile, Rating, Company, Event };
+export { User, Client, ClientProfile, Rating, Company, Event };

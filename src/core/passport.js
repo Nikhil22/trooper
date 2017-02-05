@@ -14,7 +14,7 @@
  */
 
 import passport from 'passport';
-import { User, UserLogin, UserClaim, UserProfile } from '../data/models';
+import { User } from '../data/models';
 import { auth as config } from '../config';
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -35,14 +35,10 @@ passport.use(new GoogleStrategy({
   profileFields: ['displayName', 'email'],
 },
   (req, accessToken, refreshToken, profile, done) => {
-    const loginName = 'google';
-    const claimType = 'urn:google:access_token';
-    console.log()
     const fooBar = async () => {
       if (req.user) {
-        const userLogin = await UserLogin.findOne({
-          attributes: ['name', 'key'],
-          where: { name: loginName, key: profile.id },
+        const userLogin = await User.findOne({
+          where: { googleId: profile.id },
         });
         if (userLogin) {
           // There is already a Google account that belongs to you.
@@ -52,22 +48,10 @@ passport.use(new GoogleStrategy({
           const user = await User.create({
             id: req.user.id,
             email: profile.emails[0].value,
-            logins: [
-              { name: loginName, key: profile.id },
-            ],
-            claims: [
-              { type: claimType, value: profile.id },
-            ],
-            profile: {
-              displayName: profile.displayName,
-              gender: profile._json.gender,
-            },
+            displayName: profile.displayName,
+            gender: profile._json.gender,
+            googleId: profile.id,
           }, {
-            include: [
-              { model: UserLogin, as: 'logins' },
-              { model: UserClaim, as: 'claims' },
-              { model: UserProfile, as: 'profile' },
-            ],
           });
           done(null, {
             id: user.id,
@@ -76,16 +60,7 @@ passport.use(new GoogleStrategy({
         }
       } else {
         const users = await User.findAll({
-          attributes: ['id', 'email'],
-          where: { '$logins.name$': loginName, '$logins.key$': profile.id },
-          include: [
-            {
-              attributes: ['name', 'key'],
-              model: UserLogin,
-              as: 'logins',
-              required: true,
-            },
-          ],
+          where: { googleId: profile.id },
         });
         if (users.length) {
           const user = users[0];
@@ -107,22 +82,10 @@ passport.use(new GoogleStrategy({
             user = await User.create({
               email: profile._json.email,
               emailConfirmed: true,
-              logins: [
-                { name: loginName, key: profile.id },
-              ],
-              claims: [
-                { type: claimType, value: refreshToken },
-              ],
-              profile: {
-                displayName: profile.displayName,
-                gender: profile._json.gender,
-              },
-            }, {
-              include: [
-                { model: UserLogin, as: 'logins' },
-                { model: UserClaim, as: 'claims' },
-                { model: UserProfile, as: 'profile' },
-              ],
+              displayName: profile.displayName,
+              gender: profile._json.gender,
+              refreshToken: refreshToken,
+              googleId: profile.id,
             });
             done(null, {
               id: user.id,
