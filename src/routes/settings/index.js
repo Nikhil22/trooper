@@ -22,9 +22,7 @@ function sectionSettingsData ({ userData }) {
     };
 
     if (!!userData) {
-        data.personalInfo.name = userData.profile.displayName;
         data.personalInfo.email = userData.email;
-        data.personalInfo.phone = userData.profile.phone;
     }
 
     return data;
@@ -34,14 +32,13 @@ export default {
     path: '/settings',
 
     async action() {
-        // TODO: debug
-        //const shouldRedirect = await middleware();
+        const shouldRedirect = await middleware();
         let userData = await settings();
         userData = sectionSettingsData({userData});
 
-        /*if (shouldRedirect) {
+        if (shouldRedirect) {
             return shouldRedirect;
-        }*/
+        }
         return {
             title,
             component: (

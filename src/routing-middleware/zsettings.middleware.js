@@ -8,7 +8,7 @@ async function loadSettingsData () {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: '{user{id,email,profile}}',
+        query: '{user{id,email}}',
       }),
       credentials: 'include',
     });
