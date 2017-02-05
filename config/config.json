@@ -1,6 +1,6 @@
 {
   "development": {
-    "url":"sqlite:/Users/nikhilbhaskar/Desktop/trooper/database.sqlite",
+    "url":"sqlite:/Users/vishaalpanchhi/trooper/database.sqlite",
     "dialect": "sqlite",
     "storage": "../database.sqlite"
   },

@@ -2,11 +2,12 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    queryInterface.addColumn('User', 'googleId', Sequelize.STRING);
+    /*queryInterface.addColumn('User', 'googleId', Sequelize.STRING);
     queryInterface.addColumn('User', 'refreshToken', Sequelize.STRING(255));
     queryInterface.dropTable('UserProfile');
     queryInterface.dropTable('UserClaim');
-    return queryInterface.dropTable('UserLogin');
+    return queryInterface.dropTable('UserLogin');*/
+
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
