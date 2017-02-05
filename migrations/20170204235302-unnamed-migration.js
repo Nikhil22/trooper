@@ -6,7 +6,7 @@ module.exports = {
     queryInterface.addColumn('User', 'refreshToken', Sequelize.STRING(255));
     queryInterface.dropTable('UserProfile');
     queryInterface.dropTable('UserClaim');
-    queryInterface.dropTable('UserLogin');
+    return queryInterface.dropTable('UserLogin');
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
